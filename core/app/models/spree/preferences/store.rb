@@ -12,7 +12,7 @@ module Spree::Preferences
     attr_accessor :persistence
 
     def initialize
-      @cache = Rails.cache
+      @cache = ActiveSupport::Cache::MemoryStore.new
       @persistence = true
     end
 
