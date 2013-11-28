@@ -23,7 +23,7 @@ module Spree
       class_name: 'Spree::Price',
       dependent: :destroy
 
-    delegate_belongs_to :default_price, :display_price, :display_amount, :price, :price=, :currency 
+    delegate_belongs_to :default_price, :display_price, :display_amount, :price, :price=, :currency
 
     has_many :prices,
       class_name: 'Spree::Price',
@@ -127,19 +127,36 @@ module Spree
       "#{name} - #{sku}"
     end
 
+    def sku_and_options_text
+      "#{sku} #{options_text}".strip
+    end
+
     # Product may be created with deleted_at already set,
     # which would make AR's default finder return nil.
     # This is a stopgap for that little problem.
     def product
       Spree::Product.unscoped { super }
     end
-    
+
     def in_stock?(quantity=1)
       Spree::Stock::Quantifier.new(self).can_supply?(quantity)
     end
 
     def total_on_hand
       Spree::Stock::Quantifier.new(self).total_on_hand
+    end
+
+    # Product may be created with deleted_at already set,
+    # which would make AR's default finder return nil.
+    # This is a stopgap for that little problem.
+    def product
+      Spree::Product.unscoped { super }
+    end
+
+    # Shortcut method to determine if inventory tracking is enabled for this variant
+    # This considers both variant tracking flag and site-wide inventory tracking settings
+    def should_track_inventory?
+      self.track_inventory? && Spree::Config.track_inventory_levels
     end
 
     private

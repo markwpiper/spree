@@ -1,18 +1,17 @@
-## Spree 2.1.3 ##
+## Spree 2.1.4 (unreleased) ##
 
-*   ApiHelpers attributes can now be extended without overriding instance
-    methods. By using the same approach in PermittedAttributes. e.g.
+* Cached products/show template, which can lead to drastically (65x) faster loading times on product requests.
 
-        Spree::Api::ApiHelpers.order_attributes.push :locked_at
-    
-    Washington Luiz
+    Ryan Bigg
 
-*   Admin users can set the order channel when importing orders. By sing the
-    channel attribute on Order model
+* The parts that make up an order's response from /api/orders/:num are cached, which can lead to a 5x improvement of speed for this API endpoint. 80ffb1e739606ac02ac86336ac13a51583bcc225
 
-    Washington Luiz
+    Ryan Bigg
 
-*   An order's shipments are now destroyed (to be recreated) when an order is assigned a new line item through the API. #3914
+* Cached variant objects which can lead to slightly faster loading times (4x) for each variant.
 
-    Washington Luiz
+    Ryan Bigg
 
+* Added a route to allow for /api/variants/:id requests
+
+    Ryan Bigg

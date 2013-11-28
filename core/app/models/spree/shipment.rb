@@ -2,7 +2,7 @@ require 'ostruct'
 
 module Spree
   class Shipment < ActiveRecord::Base
-    belongs_to :order, class_name: 'Spree::Order'
+    belongs_to :order, class_name: 'Spree::Order', touch: true
     belongs_to :address, class_name: 'Spree::Address'
     belongs_to :stock_location, class_name: 'Spree::StockLocation'
 
@@ -164,8 +164,8 @@ module Spree
     end
 
     def line_items
-      if order.complete? and Spree::Config[:track_inventory_levels]
-        order.line_items.select { |li| inventory_units.pluck(:variant_id).include?(li.variant_id) }
+      if order.complete? and Spree::Config.track_inventory_levels
+        order.line_items.select { |li| !li.should_track_inventory? || inventory_units.pluck(:variant_id).include?(li.variant_id) }
       else
         order.line_items
       end

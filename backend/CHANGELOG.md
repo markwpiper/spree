@@ -1,11 +1,5 @@
-## Spree 2.1.3 ##
+## Spree 2.1.4 (unreleased) ##
 
-* Fixed styling issues with select2 boxes. #3854
+* 'Only show completed orders' checkbox status will now persist when paging through orders.
 
-    Dominik Staskiewicz
-
-* Fixed issue where taxons could not be reordered. #3891 #3833 #3390
-
-    Lucas Dohmen
-
-
+    * darbs + Ryan Bigg
