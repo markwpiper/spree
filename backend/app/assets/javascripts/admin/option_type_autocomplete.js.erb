@@ -9,7 +9,7 @@ $(document).ready(function () {
         var url = Spree.url(Spree.routes.option_type_search, {
           ids: element.val()
         });
-        return $.getJSON(url, null, function (data) {
+        return $.getJSON(url, {token: Spree.api_key}, function (data) {
           return callback(data);
         });
       },

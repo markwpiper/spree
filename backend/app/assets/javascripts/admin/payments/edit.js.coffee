@@ -3,7 +3,7 @@ jQuery ($) ->
   class Payment
     constructor: (id) ->
       @url  = Spree.url("#{Spree.routes.payments_api}/#{id}.json")
-      @json = $.getJSON @url.toString(), (data) =>
+      @json = $.getJSON @url.toString(), {token: Spree.api_key}, (data) =>
         @data = data
 
     if_pending: (callback) ->
@@ -14,7 +14,7 @@ jQuery ($) ->
       jqXHR = $.ajax
         type: 'PUT'
         url:  @url.toString()
-        data: { payment: attributes }
+        data: { payment: attributes, token: Spree.api_key }
       jqXHR.done (data) =>
         @data = data
       jqXHR.fail ->

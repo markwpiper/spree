@@ -5,5 +5,5 @@ jQuery ->
     $.ajax
       type: @method
       url: @action
-      data: $(@).serialize()
+      data: $.extend( $(@).serialize(), {token: Spree.api_key} )
     false

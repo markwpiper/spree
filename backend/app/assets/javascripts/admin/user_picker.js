@@ -6,7 +6,8 @@ $.fn.userAutocomplete = function () {
     multiple: true,
     initSelection: function (element, callback) {
       $.get(Spree.routes.user_search, {
-        ids: element.val()
+        ids: element.val(),
+        token: Spree.api_key
       }, function (data) {
         callback(data);
       });

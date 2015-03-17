@@ -10,6 +10,7 @@ $ ->
       url: @href
       data: (
         authenticity_token: AUTH_TOKEN
+        token: Spree.api_key
       )
       success: (r) ->
         ($ '#images').html r
